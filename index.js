@@ -27,9 +27,10 @@ const BOT_OWNER_ID = "621347220729364490";
 const MENTION_GIF_URL = "https://i.pinimg.com/originals/b2/ff/d9/b2ffd9de76ce9385a2577daad6505575.gif";
 
 /* ======================= AUTO-KICK VOICE ======================= */
-const VC_CHANNEL_ID = "1483592724480393286";
+const VC_CHANNEL_ID = "1558545561257255133";
 const allowedUsers = new Set(["621347220729364490",
-                             "922556935633510491"
+                             "922556935633510491",
+                              "1158222770858106942"
                              ]);
 
 client.on("messageCreate", async (message) => {
