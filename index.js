@@ -307,12 +307,14 @@ function escapeRegex(str) {
 /* ======================= AUTO-KICK VOICE HANDLER ======================= */
 client.on("voiceStateUpdate", async (oldState, newState) => {
     try {
-        if (!newState.channelId) return;
         if (newState.channelId !== VC_CHANNEL_ID) return;
-        if (!allowedUsers.has(newState.id)) {
-            await newState.disconnect("Not allowed in this VC");
-            console.log(`⚠️ ${newState.member.user.tag} was auto-kicked from VC`);
-        }
+        if (oldState.channelId === newState.channelId) return; // mute/deafen/etc.
+        if (newState.id === client.user.id) return;            // ma ykickich rasso
+        if (allowedUsers.has(newState.id)) return;
+
+        const member = newState.member || await newState.guild.members.fetch(newState.id);
+        await member.voice.disconnect("Not allowed in this VC");
+        console.log(`⚠️ ${member.user.tag} was auto-kicked from VC`);
     } catch (err) {
         console.log("Error in auto-kick VC:", err);
     }
